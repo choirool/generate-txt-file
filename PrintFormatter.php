@@ -169,25 +169,6 @@ class PrintFormatter
         return $this;
     }
 
-    public function item($number, $text, $total, $price)
-    {
-        $textLength = (int) strlen($number.'. '.$text);
-        if($textLength > 23) {
-            $this->result .= substr($number.'. '.$text, 0, 23);
-            $this->newLine();
-            $this->createSpace(strlen($number.'. '));
-            $this->result .= substr($number.'. '.$text, 24);
-        } else {
-            $this->result .= $number.'. '.$text;
-        }
-
-        $this->createSpace(25);
-        $this->result .= str_pad($total.'x', 4, '0', STR_PAD_LEFT);
-        $this->createSpace();
-        $this->textAlignRight(number_format($price, 0, ',', '.'), 10);
-        return $this;
-    }
-
     public function line($type = 'single', $newLine = true)
     {
         switch ($type) {
