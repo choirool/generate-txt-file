@@ -38,7 +38,7 @@ class PrintFormatter
     {
         $textLength = (int) strlen($text);
         $restOfTextLength = $availableCharachters - $textLength;
-        $splitTextLength = floor($restOfTextLength/2);
+        $splitTextLength = $restOfTextLength/2;
 
         $this->createSpace($splitTextLength);
         $this->result .= $text;
@@ -117,7 +117,7 @@ class PrintFormatter
      */
     public function customTable(array $data)
     {
-        $cellWidth = floor(self::AVAILABLE_CARACHTERS/count($data));
+        $cellWidth = self::AVAILABLE_CARACHTERS/count($data);
         $secondLine = [];
         $secondLineEnabled = false;
 
@@ -133,21 +133,13 @@ class PrintFormatter
             }
 
             if($value['align'] == "CENTER"){
-                // $spaces = ($cellWidth - strlen($value['text'])) / 2;
-                // $this->createSpace($spaces);
-                // if($value['text'] != '') $this->result .= $value['text'];
-                // $this->createSpace($spaces);
                 $this->textAlignCenter($value['text'], $cellWidth);
             } else if($value['align'] == "RIGHT") {
-                // $spaces = $cellWidth - strlen($value['text']);
-                // $this->createSpace($spaces);
-                // if($value['text'] != '') $this->result .= $value['text'];
                 $this->textAlignRight($value['text'], $cellWidth);
             } else {
-                // if($value['text'] != '') $this->result .= $value['text'];
-                // $spaces = $cellWidth - strlen($value['text']);
-                // $this->createSpace($spaces);
                 $this->textAlignLeft($value['text']);
+                $spaces = $cellWidth - strlen($value['text']);
+                $this->createSpace($spaces);
             }
 
             if($tooLong){
